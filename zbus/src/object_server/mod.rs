@@ -200,7 +200,8 @@ impl ObjectServer {
         }
         if let Some(manager_path) = manager_path {
             let ctxt = SignalEmitter::new(&self.connection(), manager_path.clone())?;
-            ObjectManager::interfaces_removed(&ctxt, path.clone(), (&[I::name()]).into()).await?;
+            ObjectManager::interfaces_removed(&ctxt, path.clone(), [I::name()].as_slice().into())
+                .await?;
         }
         if node.is_empty() {
             let mut path_parts = path.rsplit('/').filter(|i| !i.is_empty());
